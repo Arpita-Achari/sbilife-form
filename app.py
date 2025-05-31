@@ -3,21 +3,21 @@ import sqlite3
 import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Replace with a strong secret key
+app.secret_key = 'your_secret_key_here'  # Replace with a secure key
 
 DB_FILE = 'sbilife.db'
 
-# Ensure database and table exist
+# Initialize database
 def init_db():
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS customers (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT, mobile TEXT, email TEXT, address TEXT,
-        dob TEXT, mother TEXT, father TEXT, qualification TEXT,
+        dob TEXT, mother_name TEXT, father_name TEXT, qualification TEXT,
         occupation TEXT, company TEXT, work_type TEXT, designation TEXT,
         service_length TEXT, height TEXT, weight TEXT, birth_place TEXT,
-        income TEXT, nominee TEXT, nominee_dob TEXT,
+        income TEXT, nominee_name TEXT, nominee_dob TEXT,
         vaccine1 TEXT, vaccine2 TEXT,
         pan TEXT, aadhar TEXT, account TEXT, ifsc TEXT
     )''')
@@ -27,45 +27,49 @@ def init_db():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        data = (
-            request.form['name'],
-            request.form['mobile'],
-            request.form['email'],
-            request.form['address'],
-            request.form['dob'],
-            request.form['mother'],
-            request.form['father'],
-            request.form['qualification'],
-            request.form['occupation'],
-            request.form['company'],
-            request.form['work_type'],
-            request.form['designation'],
-            request.form['service_length'],
-            request.form['height'],
-            request.form['weight'],
-            request.form['birth_place'],
-            request.form['income'],
-            request.form['nominee'],
-            request.form['nominee_dob'],
-            request.form['vaccine1'],
-            request.form['vaccine2'],
-            request.form['pan'],
-            request.form['aadhar'],
-            request.form['account'],
-            request.form['ifsc']
-        )
-        conn = sqlite3.connect(DB_FILE)
-        c = conn.cursor()
-        c.execute('''INSERT INTO customers (
-            name, mobile, email, address, dob, mother, father,
-            qualification, occupation, company, work_type, designation,
-            service_length, height, weight, birth_place, income,
-            nominee, nominee_dob, vaccine1, vaccine2, pan, aadhar,
-            account, ifsc
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', data)
-        conn.commit()
-        conn.close()
-        return render_template("thankyou.html")
+        try:
+            data = (
+                request.form['name'],
+                request.form['mobile'],
+                request.form['email'],
+                request.form['address'],
+                request.form['dob'],
+                request.form['mother_name'],
+                request.form['father_name'],
+                request.form['qualification'],
+                request.form['occupation'],
+                request.form['company'],
+                request.form['work_type'],
+                request.form['designation'],
+                request.form['service_length'],
+                request.form['height'],
+                request.form['weight'],
+                request.form['birth_place'],
+                request.form['income'],
+                request.form['nominee_name'],
+                request.form['nominee_dob'],
+                request.form['vaccine1'],
+                request.form['vaccine2'],
+                request.form['pan'],
+                request.form['aadhar'],
+                request.form['account'],
+                request.form['ifsc']
+            )
+
+            conn = sqlite3.connect(DB_FILE)
+            c = conn.cursor()
+            c.execute('''INSERT INTO customers (
+                name, mobile, email, address, dob, mother_name, father_name,
+                qualification, occupation, company, work_type, designation,
+                service_length, height, weight, birth_place, income,
+                nominee_name, nominee_dob, vaccine1, vaccine2, pan, aadhar,
+                account, ifsc
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', data)
+            conn.commit()
+            conn.close()
+            return render_template("thankyou.html")
+        except Exception as e:
+            return f"⚠️ Bad Request Error: {e}", 400
     return render_template("form.html")
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -73,7 +77,6 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        # Replace with your desired login credentials
         if username == 'admin' and password == 'admin123':
             session['logged_in'] = True
             return redirect(url_for('dashboard'))
