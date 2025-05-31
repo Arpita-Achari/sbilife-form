@@ -1,17 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3
 import os
+from flask import Request
+Request.max_form_memory_size = 1024 * 1024  # 1MB limit
+
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Replace with a secure key
+app.secret_key = 'raj@0632'  # Replace with a secure key
 
 DB_FILE = 'sbilife.db'
 
 # Initialize database
 def init_db():
-    conn = sqlite3.connect(DB_FILE)
+   conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS customers (
+    c.execute('DROP TABLE IF EXISTS customers')  # Add this to force reset
+    c.execute('''CREATE TABLE customers (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT, mobile TEXT, email TEXT, address TEXT,
         dob TEXT, mother_name TEXT, father_name TEXT, qualification TEXT,
@@ -75,6 +79,7 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        print("Received form data:", request.form)  
         username = request.form['username']
         password = request.form['password']
         if username == 'admin' and password == 'admin123':
