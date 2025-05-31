@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SBI Life Proposal Form</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- SBI Logo -->
+    <img src="{{ url_for('static', filename='sbi_logo.png') }}" alt="SBI Logo" style="width:100px; display:block; margin: 20px auto;">
+
+    <form method="POST" action="/">
+        <h2>SBI Life Proposal Form</h2>
+
+        <!-- Form Fields -->
+        <label>Name*:</label>
+        <input type="text" name="name" required>
+
+        <label>Mobile Number*:</label>
+        <input type="text" name="mobile" required>
+
+        <label>Mail ID*:</label>
+        <input type="email" name="email" required>
+
+        <label>Address*:</label>
+        <textarea name="address" required></textarea>
+
+        <label>Date of Birth*:</label>
+        <input type="date" name="dob" required>
+
+        <label>Mother Name*:</label>
+        <input type="text" name="mother_name" required>
+
+        <label>Father Name*:</label>
+        <input type="text" name="father_name" required>
+
+        <label>Qualifications*:</label>
+        <input type="text" name="qualifications" required>
+
+        <label>Occupation*:</label>
+        <input type="text" name="occupation" required>
+
+        <label>Company name & Address*:</label>
+        <textarea name="company" required></textarea>
+
+        <label>Type of Work*:</label>
+        <input type="text" name="work_type" required>
+
+        <label>Designation*:</label>
+        <input type="text" name="designation" required>
+
+        <label>Length of Service*:</label>
+        <input type="text" name="service_length" required>
+
+        <label>Height*:</label>
+        <input type="text" name="height" required>
+
+        <label>Weight*:</label>
+        <input type="text" name="weight" required>
+
+        <label>Place of Birth*:</label>
+        <input type="text" name="birth_place" required>
+
+        <label>Annual Income*:</label>
+        <input type="text" name="income" required>
+
+        <label>Nominee Name*:</label>
+        <input type="text" name="nominee_name" required>
+
+        <label>Nominee Date of Birth*:</label>
+        <input type="date" name="nominee_dob" required>
+
+        <label>1st Vaccine Date*:</label>
+        <input type="date" name="vaccine1" required>
+
+        <label>2nd Vaccine Date*:</label>
+        <input type="date" name="vaccine2" required>
+
+        <label>PAN Number*:</label>
+        <input type="text" name="pan" required>
+
+        <label>Aadhaar Number*:</label>
+        <input type="text" name="aadhar" required>
+
+        <label>Account Number*:</label>
+        <input type="text" name="account" required>
+
+        <label>IFSC Code*:</label>
+        <input type="text" name="ifsc" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

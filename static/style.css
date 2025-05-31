@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ee2a7b, #5e1685); /* Soft pink to deep purple */
+    color: #fff;
+  }
+  
+  form {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 50px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #004aad;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #005eff;
+  }
+  
+  img {
+    display: block;
+    margin: 0 auto 20px auto;
+  }
+  
