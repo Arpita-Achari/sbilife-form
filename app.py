@@ -95,12 +95,23 @@ def login():
 def dashboard():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
+
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
     c.execute("SELECT * FROM customers")
     rows = c.fetchall()
+
+    count = len(rows)
+
+    total_income = 0
+    for r in rows:
+        try:
+            total_income += float(r[17])  # index 17 is 'income'
+        except:
+            pass
+
     conn.close()
-    return render_template("dashboard.html", rows=rows)
+    return render_template("dashboard.html", rows=rows, count=count, total_income=total_income)
 
 @app.route('/logout')
 def logout():
